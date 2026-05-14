@@ -1,0 +1,364 @@
+/* CAFE project page — SDPose-style layout, HKU-inspired palette */
+:root {
+  --hku-green: #003D33;
+  --hku-teal: #00695C;
+  --hku-cream: #F5F1E6;
+  --hku-mist: #E6EEEC;
+  --hku-gold: #B58A36;
+}
+
+body {
+  font-family: 'Noto Sans', 'Google Sans', sans-serif;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--hku-cream) 0%, #ffffff 55%, var(--hku-mist) 100%);
+  color: #333333;
+}
+
+.hero.is-light {
+  background: linear-gradient(135deg, #ffffff 0%, var(--hku-cream) 100%);
+  color: #333333;
+}
+
+.hero.is-small {
+  background: linear-gradient(135deg, var(--hku-mist) 0%, #ffffff 100%);
+  color: #333333;
+}
+
+.section {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.section.hero.is-light {
+  background: linear-gradient(135deg, #ffffff 0%, var(--hku-cream) 100%);
+  color: #333333;
+}
+
+.title {
+  color: var(--hku-green) !important;
+}
+
+.subtitle {
+  color: #555555 !important;
+}
+
+.button.is-dark {
+  background-color: var(--hku-green);
+  border-color: var(--hku-teal);
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.button.is-dark:hover {
+  background-color: var(--hku-teal);
+  border-color: var(--hku-green);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 61, 51, 0.2);
+}
+
+.publication-authors a {
+  color: var(--hku-teal) !important;
+}
+
+.publication-authors a:hover {
+  color: var(--hku-green) !important;
+  text-decoration: underline;
+}
+
+.footer {
+  background-color: var(--hku-mist);
+  color: #333333;
+  border-top: 2px solid var(--hku-green);
+}
+
+.footer .icon-link {
+  color: #333333;
+}
+
+.results-carousel .item {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.slider-pagination .slider-page {
+  background: #6c757d;
+}
+
+.slider-pagination .slider-page.is-active {
+  background: var(--hku-green);
+}
+
+.content {
+  color: #333333;
+}
+
+.publication-venue {
+  color: #6c757d;
+}
+
+.publication-awards {
+  color: var(--hku-gold);
+}
+
+.eql-cntrb {
+  color: #6c757d;
+}
+
+.external-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 105, 92, 0.25);
+}
+
+pre, code {
+  background-color: var(--hku-mist);
+  color: #333333;
+  border: 1px solid #c5d5d0;
+  border-radius: 4px;
+}
+
+table {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+table th {
+  background-color: var(--hku-mist);
+  color: var(--hku-green);
+  border-color: #dee2e6;
+}
+
+table td {
+  border-color: #dee2e6;
+}
+
+.publication-video {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+}
+
+.teaser {
+  background: linear-gradient(135deg, #ffffff 0%, var(--hku-cream) 100%);
+}
+
+.teaser .hero-body {
+  background: transparent;
+}
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--hku-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hku-teal);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hku-green);
+}
+
+.project-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.project-logo img {
+  max-width: 160px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 61, 51, 0.12);
+  transition: all 0.3s ease;
+}
+
+.project-logo img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 61, 51, 0.18);
+}
+
+@media (max-width: 768px) {
+  .project-logo img {
+    max-width: 120px;
+  }
+}
+
+.footer .icon-link {
+  font-size: 25px;
+  color: #333333;
+}
+
+.link-block a {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+}
+
+.publication-title {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  color: var(--hku-green) !important;
+}
+
+.publication-authors {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+}
+
+.publication-venue {
+  width: fit-content;
+  font-weight: bold;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.affiliation-block {
+  text-align: center;
+}
+
+.affiliation-block .author-block {
+  display: block;
+}
+
+.publication-video {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-radius: 10px !important;
+}
+
+.publication-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  padding: 20px;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+.teaser-pdf-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Full-width dataset gallery (More cases) under title hero */
+.dataset-showcase .dataset-hero-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 61, 51, 0.12);
+  display: block;
+}
+
+.dataset-showcase .title.is-3 {
+  color: var(--hku-green) !important;
+}
+
+.teaser-overview .title.is-3 {
+  color: var(--hku-green) !important;
+}
+
+.table-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 61, 51, 0.08);
+  overflow-x: auto;
+}
+
+.table {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th {
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem 0.5rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background-color: var(--hku-mist);
+}
+
+.table-notes {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.table-notes p {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Category cards */
+.hku-box {
+  border-top: 3px solid var(--hku-green);
+  background: linear-gradient(180deg, #ffffff 0%, var(--hku-cream) 100%);
+  box-shadow: 0 4px 16px rgba(0, 61, 51, 0.06);
+  height: 100%;
+}
+
+.counterfactual-settings .column {
+  display: flex;
+}
+
+.counterfactual-settings .hku-box {
+  width: 100%;
+  text-align: center;
+}
+
+.hku-box .title {
+  color: var(--hku-green) !important;
+}

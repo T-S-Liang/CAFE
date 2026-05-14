@@ -1,0 +1,515 @@
+{
+  "cases": [
+    {
+      "tid": "10034070",
+      "type": "SM",
+      "title": "Tiger-striped Parking Meter",
+      "desc": "A parking meter painted with tiger stripes. SAM3 rejects both prompts. Agent retries 6 times to find the meter.",
+      "image": "assets/10034070.jpg",
+      "pos_concept": "parking meter",
+      "neg_concept": "tiger",
+      "pos_outcome": "select",
+      "neg_outcome": "report",
+      "correct": true,
+      "pos_steps": [
+        {
+          "type": "query",
+          "concept": "parking meter"
+        },
+        {
+          "type": "agent",
+          "think": "The image shows a flooded/snowy street scene with a prominent central parking meter or parking sign/meter-like post wrapped in orange tiger stripes with a blue “P” symbol. There are also smaller partially submerged parking meters in the background/side. The query asks for “parking meter,” so I should first ask SAM3 to segment parking meters directly.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "parking meter"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('parking meter') returned 0 masks. No objects matching 'parking meter' were found. Try a different or more general noun phrase.",
+          "has_image": false,
+          "n_images": 0
+        },
+        {
+          "type": "agent",
+          "think": "The direct phrase returned no masks, but visually there is a central parking-related post/sign with a blue P, and possibly smaller parking meters in the water. I should try a more general/alternative phrase that may capture the prominent target structure.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "parking sign"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('parking sign') returned 0 masks. No objects matching 'parking sign' were found. Try a different or more general noun phrase.",
+          "has_image": false,
+          "n_images": 0
+        },
+        {
+          "type": "agent",
+          "think": "SAM3 did not recognize “parking sign,” but the main object resembles a tall parking pay station or meter kiosk, with a blue P emblem. I should try another synonym that better captures the full object rather than just a sign.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "parking machine"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('parking machine') returned 0 masks. No objects matching 'parking machine' were found. Try a different or more general noun phrase.",
+          "has_image": false,
+          "n_images": 0
+        },
+        {
+          "type": "agent",
+          "think": "The specific parking-related terms are failing. Since the requested object is a parking meter, a simpler general noun phrase like “meter” may allow SAM3 to find the meter/post structures in the scene. The central orange striped object with the P symbol is the likely primary parking meter, and the smaller submerged devices may also be meters if detected.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "meter"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('meter') returned 0 masks. No objects matching 'meter' were found. Try a different or more general noun phrase.",
+          "has_image": false,
+          "n_images": 0
+        },
+        {
+          "type": "agent",
+          "think": "The more precise parking-related prompts have failed. The visually relevant object is the prominent orange, tiger-striped upright parking meter/pay-station-like post in the center with a blue P symbol. I should try a visual noun phrase that describes the whole target shape while not being too broad, such as “orange post,” to obtain a usable mask for the central parking meter.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "orange post"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('orange post') returned 0 masks. No objects matching 'orange post' were found. Try a different or more general noun phrase.",
+          "has_image": false,
+          "n_images": 0
+        },
+        {
+          "type": "agent",
+          "think": "Even “orange post” failed, but the target is still visually present as an upright post-like parking meter/pay station. I should try a very general category “post” to get candidate masks, then select only the central parking-meter-like post if detected.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "post"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('post') returned 3 mask(s). The image below shows all 3 mask(s) with numbered labels.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/10034070_positive/seg_post.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "The “post” segmentation found three upright objects. Mask 3 covers the prominent central orange striped object with the blue P symbol, which is the visually matching parking meter/pay station. Mask 1 is a tall street pole on the right, not a parking meter. Mask 2 is a small distant post/object near the top, not the main target. Before selecting, I must inspect mask 3 closely to verify it corresponds to the queried parking meter and not just an unrelated post.",
+          "tool_name": "examine_masks",
+          "tool_params": {
+            "mask_indices": [
+              3
+            ]
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] examine_masks zoom-in crops (in order): Mask 3.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/10034070_positive/zoom_mask_3.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "The close-up confirms mask 3 covers the full central parking-meter/pay-station-like object: an upright parking device with a blue “P” parking symbol, though its surface has an unusual tiger-stripe wrap. It is the only mask from the latest segmentation that matches the queried parking meter. Mask 1 is just a street pole, and mask 2 is a distant unrelated small post/object, so I should return only mask 3.",
+          "tool_name": "select_masks_and_return",
+          "tool_params": {
+            "final_answer_masks": [
+              3
+            ]
+          }
+        }
+      ],
+      "neg_steps": [
+        {
+          "type": "query",
+          "concept": "tiger"
+        },
+        {
+          "type": "agent",
+          "think": "The user asks for “tiger.” In the image I see a flooded street scene with a parking sign or post that has an orange-and-black tiger-stripe pattern, but I do not see an actual tiger animal. I must let SAM3 attempt segmentation first with the target noun phrase.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "tiger"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('tiger') returned 1 mask(s). The image below shows all 1 mask(s) with numbered labels.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/10034070_negative/seg_tiger.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "SAM3 returned a mask over the orange-and-black striped parking sign/post, not an animal. Because the query is specifically “tiger,” I need to inspect the masked region closely to verify whether this is merely a tiger-patterned sign rather than a real tiger.",
+          "tool_name": "examine_masks",
+          "tool_params": {
+            "mask_indices": [
+              1
+            ]
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] examine_masks zoom-in crops (in order): Mask 1.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/10034070_negative/zoom_mask_1.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "The zoom-in confirms mask 1 is a rigid parking sign/post with a blue “P” symbol and tiger-stripe decoration. It is not an actual tiger animal: there is no body, head, legs, fur, or living animal form, only a striped surface pattern on a sign. Re-examining the original image, the scene contains floodwater, poles/signs, and street fixtures, but no real tiger. Therefore the queried concept “tiger” does not genuinely exist in the image.",
+          "tool_name": "report_no_mask",
+          "tool_params": {}
+        }
+      ]
+    },
+    {
+      "tid": "10054121",
+      "type": "CC",
+      "title": "Skateboarder in Snow",
+      "desc": "A skateboarder placed in a snowy scene. SAM3 confidently segments 'snowboarder' (score 0.91). Agent zooms in and rejects.",
+      "image": "assets/10054121.jpg",
+      "pos_concept": "skateboarder",
+      "neg_concept": "snowboarder",
+      "pos_outcome": "select",
+      "neg_outcome": "report",
+      "correct": true,
+      "pos_steps": [
+        {
+          "type": "query",
+          "concept": "skateboarder"
+        },
+        {
+          "type": "agent",
+          "think": "The image shows a person in a red shirt performing a jump on a skateboard over snowy mountains. The queried concept “skateboarder” refers primarily to the person skateboarding, likely the whole person rather than the skateboard alone. I will first ask SAM3 to segment “skateboarder” directly.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "skateboarder"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('skateboarder') returned 1 mask(s). The image below shows all 1 mask(s) with numbered labels.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/10054121_positive/seg_skateboarder.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "SAM3 returned one mask that appears to cover the skateboarder’s body, including head, torso, arms, and legs. Since “skateboarder” refers to the person doing the skateboarding, this seems appropriate, but I need to zoom in and inspect the mask before final selection.",
+          "tool_name": "examine_masks",
+          "tool_params": {
+            "mask_indices": [
+              1
+            ]
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] examine_masks zoom-in crops (in order): Mask 1.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/10054121_positive/zoom_mask_1.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "The zoom-in confirms mask 1 accurately covers the human skateboarder: the person wearing a helmet, red top, and dark pants. The skateboard is mostly separate and not part of the “skateboarder” as a person label. This mask matches the queried concept.",
+          "tool_name": "select_masks_and_return",
+          "tool_params": {
+            "final_answer_masks": [
+              1
+            ]
+          }
+        }
+      ],
+      "neg_steps": [
+        {
+          "type": "query",
+          "concept": "snowboarder"
+        },
+        {
+          "type": "agent",
+          "think": "The image shows a person in a red top jumping over snow-covered terrain, but the board under them appears to have visible wheels/trucks like a skateboard rather than a snowboard. Since the prompt is “snowboarder,” I need SAM3 to attempt grounding that concept first before deciding whether it truly exists.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "snowboarder"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('snowboarder') returned 1 mask(s). The image below shows all 1 mask(s) with numbered labels.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/10054121_negative/seg_snowboarder.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "SAM3 found a mask for the airborne person, but I need verify whether this person is genuinely a snowboarder. The visible board has small wheels/trucks, which suggests it may be a skateboard rather than a snowboard. I will zoom in on the detected mask area to inspect the person and the board region more closely before deciding whether to accept or reject.",
+          "tool_name": "examine_masks",
+          "tool_params": {
+            "mask_indices": [
+              1
+            ]
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] examine_masks zoom-in crops (in order): Mask 1.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/10054121_negative/zoom_mask_1.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "After examining the detected region closely, the target person is riding a board with clearly visible wheels and trucks underneath. A snowboard would not have wheels/trucks and would typically be a single flat board used directly on snow, often with bindings. Despite the snowy mountain setting, the object being ridden is a skateboard-like board, so the person is not genuinely a snowboarder. Therefore the queried concept “snowboarder” does not exist in this image.",
+          "tool_name": "report_no_mask",
+          "tool_params": {}
+        }
+      ]
+    },
+    {
+      "tid": "30070232",
+      "type": "OC",
+      "title": "Marble Sculpture vs Human",
+      "desc": "A person rendered as marble. Agent zooms in 3 times to verify stone texture before rejecting 'male human'.",
+      "image": "assets/30070232.jpg",
+      "pos_concept": "marble sculpture",
+      "neg_concept": "male human",
+      "pos_outcome": "select",
+      "neg_outcome": "report",
+      "correct": true,
+      "pos_steps": [
+        {
+          "type": "query",
+          "concept": "marble sculpture"
+        },
+        {
+          "type": "agent",
+          "think": "The queried concept is “marble sculpture.” In the image, there is a pale, statue-like male figure on the right with a white face and hair, wearing a tuxedo-like outfit. I need to let SAM3 attempt to segment the queried concept first, using a concise noun phrase for the whole target.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "marble sculpture"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('marble sculpture') returned 0 masks. No objects matching 'marble sculpture' were found. Try a different or more general noun phrase.",
+          "has_image": false,
+          "n_images": 0
+        },
+        {
+          "type": "agent",
+          "think": "The exact phrase produced no masks, but the image clearly contains a statue-like pale male figure on the right. I should try a more general noun phrase that still represents the queried target, such as “sculpture,” before concluding anything.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "sculpture"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('sculpture') returned 0 masks. No objects matching 'sculpture' were found. Try a different or more general noun phrase.",
+          "has_image": false,
+          "n_images": 0
+        },
+        {
+          "type": "agent",
+          "think": "SAM3 did not find “sculpture,” but the likely target is the pale, rigid, statue-like male figure on the right. A common synonym/general category is “statue,” which may work better for segmentation while still matching the intended marble sculpture.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "statue"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('statue') returned 0 masks. No objects matching 'statue' were found. Try a different or more general noun phrase.",
+          "has_image": false,
+          "n_images": 0
+        },
+        {
+          "type": "agent",
+          "think": "The statue/sculpture prompts are failing, likely due to the object’s human-like form and tuxedo. To obtain a mask for the full target, I can try the more general noun phrase “man,” then inspect the pale right-side figure closely to decide whether it is actually a marble sculpture rather than a living person.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "man"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('man') returned 2 mask(s). The image below shows all 2 mask(s) with numbered labels.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/30070232_positive/seg_man.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "The “man” prompt produced a mask for the right-side pale, statue-like figure, which is the likely queried marble sculpture. Before accepting it, I must zoom in to inspect whether its surface/material truly appears marble or sculpture-like rather than a living man or just overexposed skin.",
+          "tool_name": "examine_masks",
+          "tool_params": {
+            "mask_indices": [
+              1
+            ]
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] examine_masks zoom-in crops (in order): Mask 1.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/30070232_positive/zoom_mask_1.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "The zoomed crop confirms the right-side male figure has an unnaturally uniform, pale, stone-like face and hair, with sculpted features rather than normal living skin tones. It is naturally described as a marble/statue-like sculpture in the scene. The most recent segmentation result is from “man,” and mask 1 covers this entire sculpture-like figure. Mask 2 is an unrelated partial person on the left edge. Therefore I should select mask 1 only.",
+          "tool_name": "select_masks_and_return",
+          "tool_params": {
+            "final_answer_masks": [
+              1
+            ]
+          }
+        }
+      ],
+      "neg_steps": [
+        {
+          "type": "query",
+          "concept": "male human"
+        },
+        {
+          "type": "agent",
+          "think": "The query asks for “male human.” In the image, there is a tuxedoed male-shaped figure on the right, but it may be a mannequin/statue/wax figure rather than an actual human. I need to let SAM attempt segmentation first for the whole target using a simple noun phrase, then inspect the result closely before deciding whether it truly matches a male human.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "man"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('man') returned 2 mask(s). The image below shows all 2 mask(s) with numbered labels.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/30070232_negative/seg_man.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "SAM found the tuxedoed male-shaped figure as mask 1 and a partial person at the far left as mask 2. The main candidate for “male human” is mask 1, but its face and hands appear unusually pale and uniform, possibly suggesting a statue/mannequin/wax figure rather than a living male human. I need to zoom in on mask 1 before accepting or rejecting it. Mask 2 is only a cropped partial body at the edge and not clearly a male human target; I may inspect it if needed, but mask 1 is the key candidate.",
+          "tool_name": "examine_masks",
+          "tool_params": {
+            "mask_indices": [
+              1
+            ]
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] examine_masks zoom-in crops (in order): Mask 1.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/30070232_negative/zoom_mask_1.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "The zoomed crop of mask 1 shows the tuxedoed figure has an unnaturally uniform chalky-white face, hair, and ear, with very smooth sculptural surface and indistinct eyes; this strongly suggests a mannequin/wax figure/statue rather than a living male human. However, SAM also returned mask 2 at the far left, which may be a cropped person in dark clothing. Since the query asks for male human, I should inspect mask 2 before deciding whether any real male human is present.",
+          "tool_name": "examine_masks",
+          "tool_params": {
+            "mask_indices": [
+              2
+            ]
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] examine_masks zoom-in crops (in order): Mask 2.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/30070232_negative/zoom_mask_4.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "Mask 2 is only a cropped dark-clothed shoulder/body at the edge with no visible face or clear male-identifying evidence; it cannot be confidently called a male human. Mask 1 appears to be a male-shaped mannequin/wax/statue rather than a real human. To be thorough before reporting absence, I should try a more general phrase to see whether SAM identifies any actual human figures that may include a male.",
+          "tool_name": "segment_phrase",
+          "tool_params": {
+            "text_prompt": "person"
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] segment_phrase('person') returned 6 mask(s). The image below shows all 6 mask(s) with numbered labels.",
+          "has_image": true,
+          "n_images": 1,
+          "images": [
+            "assets/30070232_negative/seg_person.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "With the broader “person” prompt, SAM found several human/person-like regions. Mask 2 is the same tuxedoed male-shaped figure, which appears sculptural/wax-like rather than a living human. Mask 1 is clearly the woman in blue, not male. The other masks are partial/background figures: mask 3 is a torso behind, mask 4/5 are partial left-edge figures, and mask 6 is a partial right-edge figure. To be thorough before deciding there is no segmentable male human, I should zoom into the possible non-female/partial person masks from this latest result, especially mask 2 and the partial figures.",
+          "tool_name": "examine_masks",
+          "tool_params": {
+            "mask_indices": [
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        },
+        {
+          "type": "tool_result",
+          "text": "[Tool Result] examine_masks zoom-in crops (in order): Mask 2, Mask 3, Mask 4, Mask 5, Mask 6.",
+          "has_image": true,
+          "n_images": 5,
+          "images": [
+            "assets/30070232_negative/zoom_mask_2.png",
+            "assets/30070232_negative/zoom_mask_3.png",
+            "assets/30070232_negative/zoom_mask_4.png",
+            "assets/30070232_negative/zoom_mask_5.png",
+            "assets/30070232_negative/zoom_mask_6.png"
+          ]
+        },
+        {
+          "type": "agent",
+          "think": "Re-examining the original image and the mask zooms: the prominent tuxedoed male-shaped figure has a chalky, uniform, sculptural/wax-like face, hair, and ear, lacking natural skin texture, so it is not genuinely a male human. The other detected person masks are either the woman in blue, cropped torsos/arms, or indistinct partial figures without clear evidence of being male. Therefore no object in the image genuinely matches “male human.”",
+          "tool_name": "report_no_mask",
+          "tool_params": {}
+        }
+      ]
+    }
+  ]
+}
