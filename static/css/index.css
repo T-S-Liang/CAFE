@@ -226,7 +226,13 @@ table td {
 
 .publication-venue {
   width: fit-content;
-  font-weight: bold;
+  margin: 0.85rem auto 0.55rem;
+  padding: 0.2rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(0, 105, 92, 0.08);
+  color: var(--hku-green);
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .author-block {
