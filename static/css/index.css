@@ -98,7 +98,24 @@ body {
 }
 
 .publication-venue {
-  color: #6c757d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 1rem auto 0.85rem;
+  text-align: center;
+}
+
+.publication-venue span {
+  display: inline-block;
+  padding: 0.35rem 1.15rem;
+  border-radius: 999px;
+  background: rgba(0, 105, 92, 0.1);
+  color: var(--hku-green);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
 }
 
 .publication-awards {
@@ -218,21 +235,11 @@ table td {
 .publication-title {
   font-family: 'Google Sans', 'Noto Sans', sans-serif;
   color: var(--hku-green) !important;
+  text-align: center;
 }
 
 .publication-authors {
   font-family: 'Google Sans', 'Noto Sans', sans-serif;
-}
-
-.publication-venue {
-  width: fit-content;
-  margin: 0.85rem auto 0.55rem;
-  padding: 0.2rem 0.85rem;
-  border-radius: 999px;
-  background: rgba(0, 105, 92, 0.08);
-  color: var(--hku-green);
-  font-weight: 700;
-  letter-spacing: 0.01em;
 }
 
 .author-block {
