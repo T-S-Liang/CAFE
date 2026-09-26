@@ -10,7 +10,7 @@
 [![HuggingFace Dataset](https://img.shields.io/badge/🤗%20Dataset-CAFE-blue)](https://huggingface.co/datasets/teemosliang/CAFE)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-## NeurIPS 2026 Evaluations & Datasets (E&D)
+### NeurIPS 2026 Evaluations & Datasets (E&D)
 
 [Shuang Liang](https://t-s-liang.github.io)<sup>1,3†</sup>,
 Zeqing Wang<sup>2†</sup>,
