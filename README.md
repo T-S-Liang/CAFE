@@ -10,6 +10,8 @@
 [![HuggingFace Dataset](https://img.shields.io/badge/🤗%20Dataset-CAFE-blue)](https://huggingface.co/datasets/teemosliang/CAFE)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
+## NeurIPS 2026 Evaluations & Datasets (E&D)
+
 [Shuang Liang](https://t-s-liang.github.io)<sup>1,3†</sup>,
 Zeqing Wang<sup>2†</sup>,
 Yuxian Li<sup>1†</sup>,
@@ -25,7 +27,7 @@ Han Wang<sup>1,3*</sup>
 ---
 
 ## 📢 News
-
+- **[2026-Sept-26]** 🎉 Paper accepted by NeurIPS 2026 Evaluations & Datasets (E&D).
 - **[2026-May-14]** 📄 Paper released on [arXiv](https://arxiv.org/abs/2605.09591).
 - **[2026-May-09]** 🤖 **CAFE-SAM3 agent** code released under [`agent/`](agent/).
 - **[2026-May-09]** 🧪 **CAFEval2026 evaluation toolkit** released under [`tools/`](tools/) (cgF<sub>1</sub> + AFPR/UFPR/IL-FPR/ACSR/UCSR/CSR/SoftSwap).
